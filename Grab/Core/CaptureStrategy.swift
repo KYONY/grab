@@ -20,6 +20,15 @@ enum CaptureStrategy {
     }
 }
 
+enum FallbackGuard {
+    static let collectionRoles: Set<String> = ["AXTable", "AXOutline", "AXList", "AXBrowser", "AXRow", "AXCell"]
+
+    static func allowsCopy(focusedRole: String?) -> Bool {
+        guard let focusedRole else { return true }
+        return !collectionRoles.contains(focusedRole)
+    }
+}
+
 enum ExcludeMatcher {
     static func isExcluded(bundleID: String?, list: [String]) -> Bool {
         guard let bundleID else { return false }

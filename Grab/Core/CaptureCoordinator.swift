@@ -29,6 +29,7 @@ final class CaptureCoordinator {
     private let pasteboard: PasteboardAccessing
     private let schedule: (TimeInterval, @escaping @MainActor () -> Void) -> Void
     private let onCopied: () -> Void
+    private var generation = 0
 
     init(
         settings: SettingsStore,
@@ -73,7 +74,10 @@ final class CaptureCoordinator {
             roleAtDown: gesture.roleAtDown
         ) else { return }
 
+        generation += 1
+        let current = generation
         schedule(Self.readDelay) { [self] in
+            guard current == generation else { return }
             switch CaptureStrategy.next(for: reader.selectedText(pid: app.pid)) {
             case .write(let text):
                 if ClipboardFilter.shouldWrite(text: text, currentClipboard: pasteboard.currentString) {
@@ -81,7 +85,9 @@ final class CaptureCoordinator {
                     onCopied()
                 }
             case .fallbackCopy:
-                fallbackCopy()
+                if FallbackGuard.allowsCopy(focusedRole: reader.focusedRole(pid: app.pid)) {
+                    fallbackCopy()
+                }
             case .skip:
                 break
             }

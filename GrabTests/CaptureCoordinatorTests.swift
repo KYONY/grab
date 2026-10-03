@@ -26,6 +26,7 @@ final class FakePasteboard: PasteboardAccessing {
 
 final class FakeReader: SelectionReading {
     var result: AXReadResult = .text("hello")
+    var focused: String?
     private(set) var readCount = 0
 
     func roleAt(_ point: CGPoint) -> String? { nil }
@@ -34,6 +35,8 @@ final class FakeReader: SelectionReading {
         readCount += 1
         return result
     }
+
+    func focusedRole(pid: pid_t) -> String? { focused }
 }
 
 @MainActor
@@ -164,6 +167,37 @@ struct CaptureCoordinatorTests {
         #expect(pasteboard.writes.isEmpty)
         #expect(pasteboard.currentString == "old")
         #expect(c.flashes == 0)
+    }
+
+    @Test func focusedListDoesNotPostCopy() {
+        reader.result = .unsupported
+        reader.focused = "AXOutline"
+        let c = Counters()
+        run(drag, counters: c)
+        #expect(c.copies == 0)
+        #expect(pasteboard.writes.isEmpty)
+    }
+
+    @Test func supersededGestureIsIgnored() {
+        let pasteboard = pasteboard
+        var pending: [@MainActor () -> Void] = []
+        let coordinator = CaptureCoordinator(
+            settings: settings,
+            isTrusted: { true },
+            frontmostApp: { FrontmostApp(bundleID: "com.example.app", pid: 42) },
+            reader: reader,
+            postCopy: {},
+            pasteboard: pasteboard,
+            schedule: { _, action in pending.append(action) },
+            onCopied: {}
+        )
+        let double = MouseGesture(down: .zero, up: .zero, clickCount: 2, dragDistance: 0, roleAtDown: nil)
+        let triple = MouseGesture(down: .zero, up: .zero, clickCount: 3, dragDistance: 0, roleAtDown: nil)
+        coordinator.handle(double)
+        coordinator.handle(triple)
+        pending.forEach { $0() }
+        #expect(reader.readCount == 1)
+        #expect(pasteboard.writes == ["hello"])
     }
 
     @Test func duplicateTextDoesNotWrite() {

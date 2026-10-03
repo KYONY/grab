@@ -3,6 +3,7 @@ import ApplicationServices
 protocol SelectionReading {
     func roleAt(_ point: CGPoint) -> String?
     func selectedText(pid: pid_t) -> AXReadResult
+    func focusedRole(pid: pid_t) -> String?
 }
 
 struct AccessibilityReader: SelectionReading {
@@ -27,6 +28,16 @@ struct AccessibilityReader: SelectionReading {
         var selected: CFTypeRef?
         let error = AXUIElementCopyAttributeValue(element, kAXSelectedTextAttribute as CFString, &selected)
         return Self.map(error: error, value: selected as? String)
+    }
+
+    func focusedRole(pid: pid_t) -> String? {
+        let app = AXUIElementCreateApplication(pid)
+        var focused: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(app, kAXFocusedUIElementAttribute as CFString, &focused) == .success,
+              let focused, CFGetTypeID(focused) == AXUIElementGetTypeID() else { return nil }
+        var role: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(focused as! AXUIElement, kAXRoleAttribute as CFString, &role) == .success else { return nil }
+        return role as? String
     }
 
     static func map(error: AXError, value: String?) -> AXReadResult {
