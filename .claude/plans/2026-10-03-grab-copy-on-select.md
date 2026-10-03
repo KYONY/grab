@@ -2,7 +2,7 @@
 
 **Goal:** Build Grab, a menu-bar-only macOS 27 app that copies mouse-selected text to the clipboard in every app except those on an Exclude list.
 **Created:** 2026-10-03T12:00:00
-**Status:** pending
+**Status:** in-progress
 **Mode:** —
 **Auto-commit:** yes
 **Checkpoint every:** 5
@@ -10,9 +10,9 @@
 **Scope authority:** S1
 **Sources:** S1–S9
 **Appetite:** —
-**Started:** —
+**Started:** 2026-10-03
 **Completed:** —
-**Base commit:** —
+**Base commit:** 0caaa15
 
 ---
 
@@ -25,7 +25,7 @@
 | S3 | Accessibility API (`AXUIElement`, `kAXSelectedTextAttribute`, `AXUIElementCopyElementAtPosition`, `AXIsProcessTrusted`) | api | url:https://developer.apple.com/documentation/applicationservices/axuielement_h | — |
 | S4 | `SMAppService.mainApp` login item API | api | url:https://developer.apple.com/documentation/servicemanagement/smappservice | — |
 | S5 | Installed bundle IDs, read with `mdls -raw -name kMDItemCFBundleIdentifier` on 2026-10-03: `com.umputun.agterm`, `com.apple.Terminal`, `com.apple.keychainaccess`, `com.apple.finder` | local | file:/Applications/agterm.app/Contents/Info.plist | — |
-| S6 | Signing identity `Apple Development: <redacted> (J4V2RT29RP)` — output of `security find-identity -v -p codesigning` on 2026-10-03 | local | human-only | — |
+| S6 | Signing identity `Apple Development: <redacted> (J4V2RT29RP)`, team ID = certificate subject OU `C5M26A6S6T` (`security find-certificate … | openssl x509 -noout -subject`, 2026-10-03) | local | human-only | — |
 | S7 | Toolchain: Xcode 27.0 (27A266a); `xcodegen` not installed; `make` at `/usr/bin/make` | local | human-only | — |
 | S8 | Bundle IDs of apps not installed here: `com.mitchellh.ghostty`, `com.googlecode.iterm2`, `com.1password.1password` | catalog | url:https://fleetdm.com/app-library/1password | — |
 | S9 | Accessibility settings deep link `x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility` | docs | url:https://www.mbsplugins.de/archive/2020-04-05/MacOS_System_Preference_Links/ | — |
@@ -45,9 +45,9 @@
 ## Steps
 
 ### Step 1: Scaffold Xcode project, Makefile and test target
-**Status:** pending
-**Started:** —
-**Completed:** —
+**Status:** done
+**Started:** 2026-10-03
+**Completed:** 2026-10-03
 **Files:**
 - Create: `Grab.xcodeproj/project.pbxproj`
 - Create: `Grab.xcodeproj/xcshareddata/xcschemes/Grab.xcscheme`
@@ -58,7 +58,7 @@
 - Modify: `.gitignore`
 
 1. Hand-write a minimal Xcode project (no `xcodegen` [FACT: S7], [DECISION: S1 Q17]) with two targets: `Grab` (macOS app) and `GrabTests` (unit tests hosted by `Grab`). Use folder-synchronized groups (`PBXFileSystemSynchronizedRootGroup`) for `Grab/` and `GrabTests/` so later steps add files without editing `project.pbxproj` [DECISION].
-2. Build settings: `MACOSX_DEPLOYMENT_TARGET = 27.0` [DECISION: S1 Q7], `PRODUCT_BUNDLE_IDENTIFIER = com.pryima.grab` [DECISION: S1 Q15], `SWIFT_VERSION = 6.0`, `CODE_SIGN_STYLE = Automatic`, `DEVELOPMENT_TEAM = J4V2RT29RP` [FACT: S6], `ENABLE_APP_SANDBOX = NO` (Accessibility needs it off) [DECISION: S1], `ENABLE_HARDENED_RUNTIME = YES` (keeps a later Developer ID build open, Q5) [DECISION].
+2. Build settings: `MACOSX_DEPLOYMENT_TARGET = 27.0` [DECISION: S1 Q7], `PRODUCT_BUNDLE_IDENTIFIER = com.pryima.grab` [DECISION: S1 Q15], `SWIFT_VERSION = 6.0`, `CODE_SIGN_STYLE = Automatic`, `DEVELOPMENT_TEAM = C5M26A6S6T` (certificate OU; `J4V2RT29RP` in the name is not the team ID) [FACT: S6], `ENABLE_APP_SANDBOX = NO` (Accessibility needs it off) [DECISION: S1], `ENABLE_HARDENED_RUNTIME = YES` (keeps a later Developer ID build open, Q5) [DECISION].
 3. `Info.plist`: `LSUIElement = YES` (no Dock icon) [DECISION: S1 Q6].
 4. `GrabApp.swift`: `@main` SwiftUI `App` with an empty `MenuBarExtra("Grab", systemImage: "doc.on.clipboard")` placeholder.
 5. Shared scheme `Grab` with the test action including `GrabTests`.
@@ -69,19 +69,19 @@
 #### Assertions
 - file_exists: `Grab.xcodeproj/project.pbxproj`
 - file_contains: `Grab.xcodeproj/project.pbxproj` → `com.pryima.grab`
-- file_contains: `Grab.xcodeproj/project.pbxproj` → `J4V2RT29RP`
+- file_contains: `Grab.xcodeproj/project.pbxproj` → `C5M26A6S6T`
 - file_contains: `Grab/Info.plist` → `LSUIElement`
 - command_succeeds: `make build`
 - command_succeeds: `make test`
 
 #### Verification
 - **Tier:** standard
-- **Gemini:** —
-- **Groq:** —
-- **OpenAI:** —
+- **Gemini:** pass (assertions: 6/6)
+- **Groq:** rework → adjudicated: 1 accept-with-dissent, 3 dismissed (see session Decisions Log)
+- **OpenAI:** skip
 - **Mistral (correctness):** n/a
 - **Thinking:** n/a
-- **Provenance:** n/a
+- **Provenance:** pass (S6 corrected from certificate)
 - **Reworks:** 0
 
 ---

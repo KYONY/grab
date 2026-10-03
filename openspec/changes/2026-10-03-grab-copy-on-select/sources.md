@@ -10,7 +10,7 @@ Defines what is IN this change. Items absent here are out of scope.
 | S3 | Accessibility API (AXUIElement, kAXSelectedTextAttribute, AXUIElementCopyElementAtPosition, AXIsProcessTrusted) | api | url:https://developer.apple.com/documentation/applicationservices/axuielement_h | no |
 | S4 | SMAppService.mainApp login item API | api | url:https://developer.apple.com/documentation/servicemanagement/smappservice | no |
 | S5 | Installed bundle IDs read with mdls on 2026-10-03 (agterm, Terminal, Keychain Access, Finder) | local | file:/Applications/agterm.app/Contents/Info.plist | no |
-| S6 | Signing identity Apple Development (J4V2RT29RP), security find-identity 2026-10-03 | local | human-only | no |
+| S6 | Signing identity Apple Development (J4V2RT29RP); team ID = cert OU C5M26A6S6T (openssl x509 -subject, 2026-10-03) | local | human-only | no |
 | S7 | Toolchain: Xcode 27.0 (27A266a), no xcodegen, /usr/bin/make | local | human-only | no |
 | S8 | Bundle IDs com.mitchellh.ghostty (appcatalog.cloud/apps/ghostty), com.googlecode.iterm2 (appcatalog.cloud/apps/iterm2), com.1password.1password | catalog | url:https://fleetdm.com/app-library/1password | no |
 | S9 | Accessibility settings deep link, macOS 13+ | docs | url:https://www.mbsplugins.de/archive/2020-04-05/MacOS_System_Preference_Links/ | no |

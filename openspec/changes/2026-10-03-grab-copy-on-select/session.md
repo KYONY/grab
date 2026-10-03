@@ -6,20 +6,20 @@ spec_language: "uk"            # uk | en (`--english`); language of spec prose �
 project: "grab"    # used by osdd-metrics.py to filter provider logs; defaults to cwd basename if empty
 feature: "Grab — copy-on-select menu bar app"
 status: in-progress
-current_phase: 2.5
-next_phase: 4
+current_phase: 4
+next_phase: 5
 spec: ""
 plan: ".claude/plans/2026-10-03-grab-copy-on-select.md"
-base_commit: ""
+base_commit: "0caaa15"
 scope_authority: "S1"        # source id (in sources.md) that defines in-scope items; "" = none
 sources: "sources.md"       # source manifest path; "" = none
-ground_status: "human-checkpoint"           # grounded | blocked | human-checkpoint | not-run | no-op
+ground_status: "grounded"           # grounded | blocked | human-checkpoint | not-run | no-op
 created: "2026-10-03T09:18:38Z"
 updated: "2026-10-03T09:18:38Z"
 metrics:
   steps_total: 9
-  steps_completed: 0
-  steps_first_pass: 0
+  steps_completed: 1
+  steps_first_pass: 1
   reworks: 0
   reflect_cycles: 0
   facts_verified: 0          # facts checked against a source at GROUND
@@ -33,6 +33,10 @@ metrics:
 ## Decisions Log
 
 <!-- Append key decisions as they happen -->
+- 2026-10-03 step 1: dissent="groq: scheme has Profile/Analyze/Archive actions" | rule_applied="scope-in-authority" | outcome="ACCEPT-WITH-DISSENT"
+- 2026-10-03 step 1: dissent="groq: MARKETING_VERSION/CURRENT_PROJECT_VERSION missing" | rule_applied="unactionable-dismiss" | outcome="DISMISS" (pbxproj lines `MARKETING_VERSION = 0.1.0;` `CURRENT_PROJECT_VERSION = 1;` present; evidence quote not in diff)
+- 2026-10-03 step 1: dissent="groq: test target bundle id not configured" | rule_applied="unactionable-dismiss" | outcome="DISMISS" (`PRODUCT_BUNDLE_IDENTIFIER = com.pryima.grabTests;` present)
+- 2026-10-03 step 1: dissent="groq: Info.plist exclusion ambiguous" | rule_applied="unactionable-dismiss" | outcome="DISMISS" (`membershipExceptions = ( Info.plist, );` present)
 
 ## Phase Outputs
 
@@ -48,3 +52,9 @@ Base commit: none — repository root is `/Volumes/RnD/RnD/Development/macOS` (p
 - Scope set-diff: plan items vs `scope-authority-S1.md` in-scope set → 0 extra features. Implementation-only decisions (NSEvent monitor, 60/150 ms delays, Hardened Runtime, folder-synced groups, localization check script) add no user-visible scope.
 - Provenance: S2–S4 + plan ASSUMPTIONs sent to researcher; S1/S6/S7 human-only → human checkpoint.
 - Provenance (researcher): S2, S3, S4 SUPPORTED; Ghostty/iTerm2/1Password bundle IDs SUPPORTED → S8; settings deep link SUPPORTED for macOS 13+ → S9; NSEvent global mouse monitor needs no Accessibility trust (key events only) — consistent with Step 6 design. Plan ASSUMPTIONs converted to FACTs.
+- GROUND human checkpoint: user confirmed S1 transcription and git init inside grab («1+ 2 +»). Verdict GROUNDED.
+- Repo: `git init` in grab; base commit 0caaa15 holds only .gitignore, .claude/plans, openspec. Committing .mcp.json and the rest of .claude was refused by the auto-mode classifier (credential-leakage) — left untracked for the user.
+
+### Phase 4 EXECUTE
+- Step 1 implementer BLOCKED: S6 was CONTRADICTED by source — `J4V2RT29RP` is the cert name suffix, team ID is OU `C5M26A6S6T` (verified with openssl). Fixed from source in plan, sources.md and pbxproj (gate escape: GROUND treated S6 as human-only).
+- Step 1 ACCEPT: assertions 6/6 (make build, make test pass), gemini PASS, groq REWORK → adjudicated (1 accept-with-dissent, 3 dismiss). Reworks 0. Implementer BLOCKED once on team ID (fixed from source by orchestrator).
