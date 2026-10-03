@@ -6,8 +6,8 @@ spec_language: "uk"            # uk | en (`--english`); language of spec prose �
 project: "grab"    # used by osdd-metrics.py to filter provider logs; defaults to cwd basename if empty
 feature: "Grab — copy-on-select menu bar app"
 status: in-progress
-current_phase: 4
-next_phase: 5
+current_phase: 6
+next_phase: 7
 spec: ""
 plan: ".claude/plans/2026-10-03-grab-copy-on-select.md"
 base_commit: "0caaa15"
@@ -39,6 +39,13 @@ metrics:
 - 2026-10-03 step 1: dissent="groq: Info.plist exclusion ambiguous" | rule_applied="unactionable-dismiss" | outcome="DISMISS" (`membershipExceptions = ( Info.plist, );` present)
 - 2026-10-03 step 5: dissent="groq: CopyKeystroke event never stored/flagged/posted" | rule_applied="unactionable-dismiss" | outcome="DISMISS" (evidence came from the orchestrator's condensed summary; actual diff has `let event = CGEvent(...)`, `event?.flags = .maskCommand`, `event?.post(tap: .cghidEventTap)`)
 - 2026-10-03 step 5: dissent="groq: CFGetTypeID guard is over-engineering" | rule_applied="scope-in-authority" | outcome="ACCEPT-WITH-DISSENT" (guard makes the following force-cast safe)
+- 2026-10-03 reflect: dissent="gemini A1: `[permission]` capture is a compile error" | rule_applied="unactionable-dismiss" | outcome="DISMISS" (make build / make test succeed with that line)
+- 2026-10-03 reflect: dissent="gemini A2/B1: AppDelegate starts monitors + onboarding inside the XCTest host" | rule_applied="correctness-with-evidence" | outcome="REWORK" (skip AppModel.start() when XCTestConfigurationFilePath is set; do not restructure test hosting)
+- 2026-10-03 reflect: dissent="gemini A3: fallback Cmd+C leaves a filtered-out (<2 chars / whitespace) selection on the clipboard" | rule_applied="correctness-with-evidence" | outcome="REWORK" (spec: skip <2 chars — restore previous pasteboard contents when the filter rejects after a fallback copy)
+- 2026-10-03 reflect: dissent="gemini B2: launchAtLogin tests mutate system login items" | rule_applied="unactionable-dismiss" | outcome="DISMISS" (SettingsStore only stores a Bool; LoginItem is never called from tests)
+- 2026-10-03 verify: dissent="groq: .gitignore entries not in spec" | rule_applied="scope-in-authority" | outcome="ACCEPT-WITH-DISSENT" (plan step 1 item 7)
+- 2026-10-03 verify: dissent="groq: ClipboardFilter must reject text containing the marker string" | rule_applied="unactionable-dismiss" | outcome="DISMISS" (misreads spec: the marker is written by PasteboardWriter, not a text filter)
+- 2026-10-03 verify: adversarial (opus) REWORK — fallback Cmd+C fires when a list/table row is double-clicked or dragged (AXStaticText labels), overwriting the clipboard with the item | rule_applied="adversarial-veto" | outcome="REWORK" → FallbackGuard (focused role AXTable/AXOutline/AXList/AXBrowser/AXRow/AXCell blocks Cmd+C) + generation counter. ⚠️ CORRECTION (adversarial round 2): the counter only drops a capture superseded within 60 ms, so a real triple click (clicks 100–250 ms apart) STILL captures twice; the earlier claim that it no longer does was false. Secondary notes not acted on: restore() bumps changeCount (only after our own Cmd+C already changed it); snapshot() reads all types on main thread.
 
 ## Phase Outputs
 
@@ -72,3 +79,17 @@ Base commit: none — repository root is `/Volumes/RnD/RnD/Development/macOS` (p
 - Step 8 ACCEPT: assertions 3/3, gemini PASS, groq PASS. Reworks 0.
 - 2026-10-03 step 9: gemini PASS with 4 Ukrainian wording suggestions (Grabу; Доступність vs Універсальний доступ; Quit = Завершити; Виключені програми) — not applied: terminology is a FACT about macOS Ukrainian UI not yet sourced; carried to A13 user review. Built app has uk.lproj only (no en.lproj).
 - Step 9 ACCEPT: assertions 3/3, gemini PASS, groq PASS. Reworks 0.
+
+### Phase 4 complete
+All 9 steps executed. 9/9 first pass, 0 reworks. 55 tests.
+
+### Phase 5 REFLECT (cycle 1)
+Diff 48.8 KB split into 2 chunks. groq B PASS; groq A UNAVAILABLE (prompt over Groq 7.5k-token per-call cap) → fallback lane Z.ai glm-4.5-flash; gemini A/B REWORK (2 actionable, 2 dismissed); mistral A/B PASS.
+- Reflect cycle 2: fix commit reviewed by gemini (the dissenter) → PASS. REFLECT done.
+
+### Phase 6 DE-SLOP
+Removed unused Equatable on FrontmostApp, MouseGesture, RunningApp and unused FakePasteboard.restored. Tests 56/56. GUARD: no third-party workaround (no dependencies) — nothing to pin.
+
+### Phase 7 VERIFY (round 1)
+Cross-vendor: gemini PASS, mistral PASS, groq REWORK (2 findings adjudicated: 1 accept-with-dissent, 1 dismiss). Adversarial opus REWORK (veto) → fix commit. Acceptance 7-0: all rows need the running app → pending user (INCOMPLETE until confirmed). Provenance floor: 0 blocked; candidates = provisional UI copy + build commands.
+- Phase 7 adversarial round 2: list/row finding CLOSED for AppKit (table/outline/list/browser focus, row drag, Open/Save panels). Generation counter ineffective at real timing (sandbox sim: 2 captures per triple click). Verification failed twice → user decides (option A: delay double-click read to NSEvent.doubleClickInterval + mouse-down supersedes; option B: accept double capture, remove counter). Noted gap (UNTESTED): Electron apps with AX tree off report no focused role → guard allows Cmd+C (spec: unknown proceeds).
