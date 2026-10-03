@@ -275,9 +275,9 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 ---
 
 ### Step 8: Menu bar UI, settings window, login item
-**Status:** pending
-**Started:** —
-**Completed:** —
+**Status:** done
+**Started:** 2026-10-03
+**Completed:** 2026-10-03
 **Files:**
 - Modify: `Grab/GrabApp.swift`
 - Create: `Grab/UI/MenuContent.swift`
@@ -301,12 +301,12 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 
 #### Verification
 - **Tier:** standard
-- **Gemini:** —
-- **Groq:** —
-- **OpenAI:** —
+- **Gemini:** pass (assertions: 3/3)
+- **Groq:** pass
+- **OpenAI:** skip
 - **Mistral (correctness):** n/a
 - **Thinking:** n/a
-- **Provenance:** n/a
+- **Provenance:** n/a (copy provisional)
 - **Reworks:** 0
 
 ---
