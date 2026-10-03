@@ -87,9 +87,9 @@
 ---
 
 ### Step 2: Settings store
-**Status:** pending
-**Started:** —
-**Completed:** —
+**Status:** done
+**Started:** 2026-10-03
+**Completed:** 2026-10-03
 **Files:**
 - Create: `Grab/Settings/SettingsStore.swift`
 - Create: `Grab/Settings/DefaultExcludes.swift`
@@ -109,12 +109,12 @@
 
 #### Verification
 - **Tier:** standard
-- **Gemini:** —
-- **Groq:** —
-- **OpenAI:** —
+- **Gemini:** pass (assertions: 2/2)
+- **Groq:** pass — 4 optional style notes, no change required
+- **OpenAI:** skip
 - **Mistral (correctness):** n/a
 - **Thinking:** n/a
-- **Provenance:** pending (bundle IDs)
+- **Provenance:** pass (bundle IDs = S5 + S8)
 - **Reworks:** 0
 
 ---
