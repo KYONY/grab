@@ -5,17 +5,17 @@ slug: "grab-copy-on-select"                 # undated kebab-case slug; Phase 0 s
 spec_language: "uk"            # uk | en (`--english`); language of spec prose — see references/phase-2-spec.md "Language"
 project: "grab"    # used by osdd-metrics.py to filter provider logs; defaults to cwd basename if empty
 feature: "Grab — copy-on-select menu bar app"
-status: in-progress
-current_phase: 7
-next_phase: 7
+status: completed
+current_phase: 8
+next_phase: 8
 spec: ""
-plan: ".claude/plans/2026-10-03-grab-copy-on-select.md"
+plan: ".claude/plans/archive/2026-10-03-grab-copy-on-select.md"
 base_commit: "0caaa15"
 scope_authority: "S1"        # source id (in sources.md) that defines in-scope items; "" = none
 sources: "sources.md"       # source manifest path; "" = none
 ground_status: "grounded"           # grounded | blocked | human-checkpoint | not-run | no-op
 created: "2026-10-03T09:18:38Z"
-updated: "2026-10-03T09:18:38Z"
+updated: "2026-10-03T15:30:00Z"
 metrics:
   steps_total: 9
   steps_completed: 9
@@ -95,3 +95,9 @@ Cross-vendor: gemini PASS, mistral PASS, groq REWORK (2 findings adjudicated: 1 
 - Phase 7 adversarial round 2: list/row finding CLOSED for AppKit (table/outline/list/browser focus, row drag, Open/Save panels). Generation counter ineffective at real timing (sandbox sim: 2 captures per triple click). Verification failed twice → user decides (option A: delay double-click read to NSEvent.doubleClickInterval + mouse-down supersedes; option B: accept double capture, remove counter). Noted gap (UNTESTED): Electron apps with AX tree off report no focused role → guard allows Cmd+C (spec: unknown proceeds).
 - 2026-10-03 user decisions («Прийняти двічі», «Так, додати»): triple click double capture accepted — generation counter removed; acceptance row A14 added (user-authorized checklist change).
 - 7c judge: cross-vendor 2/3 PASS + groq dissent adjudicated; adversarial veto resolved (list/row fixed and confirmed closed; triple-click double capture accepted by user). Code verdict PASS. Acceptance 7-0 awaiting human rows A1–A14 → Phase 8 blocked on user confirmation (next_phase stays 7).
+
+### Phase 7 acceptance
+Acceptance 14/14 PASS (A10 agent, rest user, 2026-10-03). Menu-position observation during A11 not reproduced; no code change.
+
+### Phase 8 REPORT
+report.md written. Metrics via `osdd-metrics.py --project grab` (default project parse picks up the inline YAML comment → 0 calls).
