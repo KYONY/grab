@@ -6,7 +6,7 @@ spec_language: "uk"            # uk | en (`--english`); language of spec prose �
 project: "grab"    # used by osdd-metrics.py to filter provider logs; defaults to cwd basename if empty
 feature: "Grab — copy-on-select menu bar app"
 status: in-progress
-current_phase: 6
+current_phase: 7
 next_phase: 7
 spec: ""
 plan: ".claude/plans/2026-10-03-grab-copy-on-select.md"
@@ -94,3 +94,4 @@ Removed unused Equatable on FrontmostApp, MouseGesture, RunningApp and unused Fa
 Cross-vendor: gemini PASS, mistral PASS, groq REWORK (2 findings adjudicated: 1 accept-with-dissent, 1 dismiss). Adversarial opus REWORK (veto) → fix commit. Acceptance 7-0: all rows need the running app → pending user (INCOMPLETE until confirmed). Provenance floor: 0 blocked; candidates = provisional UI copy + build commands.
 - Phase 7 adversarial round 2: list/row finding CLOSED for AppKit (table/outline/list/browser focus, row drag, Open/Save panels). Generation counter ineffective at real timing (sandbox sim: 2 captures per triple click). Verification failed twice → user decides (option A: delay double-click read to NSEvent.doubleClickInterval + mouse-down supersedes; option B: accept double capture, remove counter). Noted gap (UNTESTED): Electron apps with AX tree off report no focused role → guard allows Cmd+C (spec: unknown proceeds).
 - 2026-10-03 user decisions («Прийняти двічі», «Так, додати»): triple click double capture accepted — generation counter removed; acceptance row A14 added (user-authorized checklist change).
+- 7c judge: cross-vendor 2/3 PASS + groq dissent adjudicated; adversarial veto resolved (list/row fixed and confirmed closed; triple-click double capture accepted by user). Code verdict PASS. Acceptance 7-0 awaiting human rows A1–A14 → Phase 8 blocked on user confirmation (next_phase stays 7).
