@@ -214,9 +214,9 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 ---
 
 ### Step 6: Mouse monitor and capture coordinator
-**Status:** pending
-**Started:** —
-**Completed:** —
+**Status:** done
+**Started:** 2026-10-03
+**Completed:** 2026-10-03
 **Files:**
 - Create: `Grab/System/MouseMonitor.swift`
 - Create: `Grab/Core/CaptureCoordinator.swift`
@@ -236,9 +236,9 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 
 #### Verification
 - **Tier:** standard
-- **Gemini:** —
-- **Groq:** —
-- **OpenAI:** —
+- **Gemini:** pass (assertions: 1/1)
+- **Groq:** pass
+- **OpenAI:** skip
 - **Mistral (correctness):** n/a
 - **Thinking:** n/a
 - **Provenance:** n/a
