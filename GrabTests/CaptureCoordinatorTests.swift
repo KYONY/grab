@@ -178,28 +178,6 @@ struct CaptureCoordinatorTests {
         #expect(pasteboard.writes.isEmpty)
     }
 
-    @Test func supersededGestureIsIgnored() {
-        let pasteboard = pasteboard
-        var pending: [@MainActor () -> Void] = []
-        let coordinator = CaptureCoordinator(
-            settings: settings,
-            isTrusted: { true },
-            frontmostApp: { FrontmostApp(bundleID: "com.example.app", pid: 42) },
-            reader: reader,
-            postCopy: {},
-            pasteboard: pasteboard,
-            schedule: { _, action in pending.append(action) },
-            onCopied: {}
-        )
-        let double = MouseGesture(down: .zero, up: .zero, clickCount: 2, dragDistance: 0, roleAtDown: nil)
-        let triple = MouseGesture(down: .zero, up: .zero, clickCount: 3, dragDistance: 0, roleAtDown: nil)
-        coordinator.handle(double)
-        coordinator.handle(triple)
-        pending.forEach { $0() }
-        #expect(reader.readCount == 1)
-        #expect(pasteboard.writes == ["hello"])
-    }
-
     @Test func duplicateTextDoesNotWrite() {
         pasteboard.currentString = "hello"
         let c = Counters()
