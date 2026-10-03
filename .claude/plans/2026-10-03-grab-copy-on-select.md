@@ -155,9 +155,9 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 ---
 
 ### Step 4: Pasteboard writer
-**Status:** pending
-**Started:** —
-**Completed:** —
+**Status:** done
+**Started:** 2026-10-03
+**Completed:** 2026-10-03
 **Files:**
 - Create: `Grab/System/PasteboardWriter.swift`
 - Test: `GrabTests/PasteboardWriterTests.swift`
@@ -173,12 +173,12 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 
 #### Verification
 - **Tier:** standard
-- **Gemini:** —
-- **Groq:** —
-- **OpenAI:** —
+- **Gemini:** pass (assertions: 2/2)
+- **Groq:** pass
+- **OpenAI:** skip
 - **Mistral (correctness):** n/a
 - **Thinking:** n/a
-- **Provenance:** pending (S2 marker name)
+- **Provenance:** pass (marker name = S2)
 - **Reworks:** 0
 
 ---
