@@ -4,3 +4,12 @@
 build/
 xcuserdata/
 *.xcuserstate
+
+# toolkit-synced, machine-local
+.claude/agents/
+.claude/rules/
+.claude/skills/
+.claude/toolkit.json
+.claude/toolkit.lock
+.mcp.json
+.claude/skill-usage.jsonl

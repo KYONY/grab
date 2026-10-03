@@ -101,3 +101,28 @@ Acceptance 14/14 PASS (A10 agent, rest user, 2026-10-03). Menu-position observat
 
 ### Phase 8 REPORT
 report.md written. Metrics via `osdd-metrics.py --project grab` (default project parse picks up the inline YAML comment → 0 calls).
+
+### History rewrite (2026-10-03, after archive)
+`git filter-repo`: author set to `Viktor Pryima <45743322+KYONY@users.noreply.github.com>`, personal email in plan row S6 replaced with `<redacted>` (user decision). Every commit hash changed; hashes cited above are pre-rewrite. Old → new:
+
+- 06ade13 → 7c51b1a
+- 0caaa15 → ef928f2
+- 1440c25 → d64c328
+- 160e802 → 2de7988
+- 40817d9 → f116120
+- 530181e → 579f512
+- 59c712f → 4c6c4d8
+- 6727c8d → 3980536
+- 7b86997 → 1030e94
+- 8fcee21 → 7f99d72
+- 94553ec → 7f7bb20
+- 95a1eb4 → 3e97e5e
+- aa7a3d8 → 923a96d
+- b16333b → fa4c088
+- bd03c31 → 78270d7
+- d6740a8 → e1f4549
+- de60172 → b0e63e6
+- e7d132a → 87fdeea
+- eda09c9 → 8bcf4c0
+- eebdccb → 1738dd0
+- fa1a75c → a178a95
