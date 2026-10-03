@@ -14,6 +14,21 @@ struct PasteboardWriter {
 
     var currentString: String? { pasteboard.string(forType: .string) }
 
+    func snapshot() -> [[NSPasteboard.PasteboardType: Data]] {
+        (pasteboard.pasteboardItems ?? []).map { item in
+            Dictionary(uniqueKeysWithValues: item.types.compactMap { type in item.data(forType: type).map { (type, $0) } })
+        }
+    }
+
+    func restore(_ items: [[NSPasteboard.PasteboardType: Data]]) {
+        pasteboard.clearContents()
+        pasteboard.writeObjects(items.map { entries in
+            let item = NSPasteboardItem()
+            for (type, data) in entries { item.setData(data, forType: type) }
+            return item
+        })
+    }
+
     func write(_ text: String) {
         pasteboard.clearContents()
         pasteboard.setString(text, forType: .string)

@@ -5,6 +5,8 @@ protocol PasteboardAccessing {
     var changeCount: Int { get }
     var currentString: String? { get }
     func write(_ text: String)
+    func snapshot() -> [[NSPasteboard.PasteboardType: Data]]
+    func restore(_ items: [[NSPasteboard.PasteboardType: Data]])
 }
 
 extension PasteboardWriter: PasteboardAccessing {}
@@ -89,11 +91,15 @@ final class CaptureCoordinator {
     private func fallbackCopy() {
         let previousCount = pasteboard.changeCount
         let previousString = pasteboard.currentString
+        let previousItems = pasteboard.snapshot()
         postCopy()
         schedule(Self.copyDelay) { [self] in
-            guard pasteboard.changeCount != previousCount,
-                  let new = pasteboard.currentString,
-                  ClipboardFilter.shouldWrite(text: new, currentClipboard: previousString) else { return }
+            guard pasteboard.changeCount != previousCount else { return }
+            guard let new = pasteboard.currentString,
+                  ClipboardFilter.shouldWrite(text: new, currentClipboard: previousString) else {
+                pasteboard.restore(previousItems)
+                return
+            }
             pasteboard.write(new)
             onCopied()
         }

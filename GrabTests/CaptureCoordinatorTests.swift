@@ -1,5 +1,5 @@
 import Testing
-import Foundation
+import AppKit
 @testable import Grab
 
 @MainActor
@@ -7,10 +7,21 @@ final class FakePasteboard: PasteboardAccessing {
     var changeCount = 0
     var currentString: String?
     var writes: [String] = []
+    var restored: [[NSPasteboard.PasteboardType: Data]]?
 
     func write(_ text: String) {
         writes.append(text)
         currentString = text
+        changeCount += 1
+    }
+
+    func snapshot() -> [[NSPasteboard.PasteboardType: Data]] {
+        currentString.map { [[.string: Data($0.utf8)]] } ?? []
+    }
+
+    func restore(_ items: [[NSPasteboard.PasteboardType: Data]]) {
+        restored = items
+        currentString = items.first?[.string].flatMap { String(data: $0, encoding: .utf8) }
         changeCount += 1
     }
 }
@@ -141,6 +152,20 @@ struct CaptureCoordinatorTests {
         }
         #expect(pasteboard.writes == ["copied text"])
         #expect(c.flashes == 1)
+    }
+
+    @Test func copyOfFilteredTextRestoresPreviousClipboard() {
+        reader.result = .unsupported
+        pasteboard.currentString = "old"
+        let pasteboard = pasteboard
+        let c = Counters()
+        run(drag, counters: c) {
+            pasteboard.currentString = "a"
+            pasteboard.changeCount += 1
+        }
+        #expect(pasteboard.writes.isEmpty)
+        #expect(pasteboard.currentString == "old")
+        #expect(c.flashes == 0)
     }
 
     @Test func duplicateTextDoesNotWrite() {
