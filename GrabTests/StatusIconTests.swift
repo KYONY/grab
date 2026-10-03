@@ -2,10 +2,10 @@ import Testing
 @testable import Grab
 
 struct StatusIconTests {
-    private static let warning = "exclamationmark.triangle"
-    private static let off = "minus.circle"
-    private static let on = "doc.on.clipboard"
-    private static let flash = "doc.on.clipboard.fill"
+    private static let warning = "MenuBarNoPermission"
+    private static let off = "MenuBarOff"
+    private static let on = "MenuBarOn"
+    private static let flash = "MenuBarFlash"
 
     @Test(arguments: [false, true], [false, true])
     func untrustedIsWarning(enabled: Bool, flashing: Bool) {

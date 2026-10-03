@@ -84,7 +84,7 @@ struct GrabApp: App {
         MenuBarExtra {
             MenuContent(settings: model.settings, permission: model.permission)
         } label: {
-            Image(systemName: model.iconName)
+            Image(model.iconName).renderingMode(.template)
         }
         Settings {
             SettingsView(settings: model.settings)
