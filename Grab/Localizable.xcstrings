@@ -1,0 +1,96 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Grab needs Accessibility access": {
+      "localizations": {
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grabу потрібен універсальний доступ"
+          }
+        }
+      }
+    },
+    "Grab uses the Accessibility permission to read the text you select. Turn it on for Grab in System Settings.": {
+      "localizations": {
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grab використовує дозвіл «Універсальний доступ», щоб читати виділений вами текст. Увімкніть його для Grab у Системних параметрах."
+          }
+        }
+      }
+    },
+    "Open System Settings": {
+      "localizations": {
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити Системні параметри"
+          }
+        }
+      }
+    },
+    "Enabled": {
+      "localizations": {
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнено"
+          }
+        }
+      }
+    },
+    "Settings…": {
+      "localizations": {
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Параметри…"
+          }
+        }
+      }
+    },
+    "Quit": {
+      "localizations": {
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вийти"
+          }
+        }
+      }
+    },
+    "Excluded apps": {
+      "localizations": {
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виключені програми"
+          }
+        }
+      }
+    },
+    "Choose app…": {
+      "localizations": {
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати програму…"
+          }
+        }
+      }
+    },
+    "Launch at login": {
+      "localizations": {
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запускати під час входу"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

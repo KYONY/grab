@@ -312,9 +312,9 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 ---
 
 ### Step 9: Localization (English + Ukrainian)
-**Status:** pending
-**Started:** —
-**Completed:** —
+**Status:** done
+**Started:** 2026-10-03
+**Completed:** 2026-10-03
 **Files:**
 - Create: `Grab/Localizable.xcstrings`
 - Create: `scripts/check-localization.sh`
@@ -331,12 +331,12 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 
 #### Verification
 - **Tier:** standard
-- **Gemini:** —
-- **Groq:** —
-- **OpenAI:** —
+- **Gemini:** pass (assertions: 3/3)
+- **Groq:** pass
+- **OpenAI:** skip
 - **Mistral (correctness):** n/a
 - **Thinking:** n/a
-- **Provenance:** pending (uk copy is provisional)
+- **Provenance:** provisional (uk copy awaits user review, A13)
 - **Reworks:** 0
 
 ---

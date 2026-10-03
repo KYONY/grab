@@ -18,8 +18,8 @@ created: "2026-10-03T09:18:38Z"
 updated: "2026-10-03T09:18:38Z"
 metrics:
   steps_total: 9
-  steps_completed: 8
-  steps_first_pass: 8
+  steps_completed: 9
+  steps_first_pass: 9
   reworks: 0
   reflect_cycles: 0
   facts_verified: 0          # facts checked against a source at GROUND
@@ -70,3 +70,5 @@ Base commit: none — repository root is `/Volumes/RnD/RnD/Development/macOS` (p
 - Step 7 ACCEPT: assertions 1/1, gemini PASS, groq PASS. Reworks 0.
 - 2026-10-03 step 8: implementer DECISIONS — SF Symbols exclamationmark.triangle / minus.circle / doc.on.clipboard / doc.on.clipboard.fill; onboarding via NSApplicationDelegateAdaptor + NSWindow; menu/settings English copy PROVISIONAL. Noted for REFLECT: test host launches AppDelegate (starts monitors, may show onboarding window during make test).
 - Step 8 ACCEPT: assertions 3/3, gemini PASS, groq PASS. Reworks 0.
+- 2026-10-03 step 9: gemini PASS with 4 Ukrainian wording suggestions (Grabу; Доступність vs Універсальний доступ; Quit = Завершити; Виключені програми) — not applied: terminology is a FACT about macOS Ukrainian UI not yet sourced; carried to A13 user review. Built app has uk.lproj only (no en.lproj).
+- Step 9 ACCEPT: assertions 3/3, gemini PASS, groq PASS. Reworks 0.

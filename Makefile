@@ -6,6 +6,7 @@ build:
 	$(XCODEBUILD) build
 
 test:
+	bash scripts/check-localization.sh
 	$(XCODEBUILD) test
 
 run: build
