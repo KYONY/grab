@@ -184,9 +184,9 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 ---
 
 ### Step 5: Accessibility reader and ⌘C synthesizer
-**Status:** pending
-**Started:** —
-**Completed:** —
+**Status:** done
+**Started:** 2026-10-03
+**Completed:** 2026-10-03
 **Files:**
 - Create: `Grab/System/AccessibilityReader.swift`
 - Create: `Grab/System/CopyKeystroke.swift`
@@ -203,9 +203,9 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 
 #### Verification
 - **Tier:** standard
-- **Gemini:** —
-- **Groq:** —
-- **OpenAI:** —
+- **Gemini:** pass (assertions: 1/1)
+- **Groq:** rework — adjudicated: 2 dismissed, 1 accept-with-dissent
+- **OpenAI:** skip
 - **Mistral (correctness):** n/a
 - **Thinking:** n/a
 - **Provenance:** n/a
