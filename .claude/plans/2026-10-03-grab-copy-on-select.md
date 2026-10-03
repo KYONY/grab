@@ -247,9 +247,9 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 ---
 
 ### Step 7: Accessibility permission flow
-**Status:** pending
-**Started:** —
-**Completed:** —
+**Status:** done
+**Started:** 2026-10-03
+**Completed:** 2026-10-03
 **Files:**
 - Create: `Grab/System/PermissionMonitor.swift`
 - Create: `Grab/UI/OnboardingView.swift`
@@ -264,12 +264,12 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 
 #### Verification
 - **Tier:** standard
-- **Gemini:** —
-- **Groq:** —
-- **OpenAI:** —
+- **Gemini:** pass (assertions: 1/1)
+- **Groq:** pass
+- **OpenAI:** skip
 - **Mistral (correctness):** n/a
 - **Thinking:** n/a
-- **Provenance:** pending (settings URL)
+- **Provenance:** pass (deep link = S9; copy provisional)
 - **Reworks:** 0
 
 ---
