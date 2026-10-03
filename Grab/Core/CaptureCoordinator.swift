@@ -11,7 +11,7 @@ protocol PasteboardAccessing {
 
 extension PasteboardWriter: PasteboardAccessing {}
 
-struct FrontmostApp: Equatable {
+struct FrontmostApp {
     let bundleID: String?
     let pid: pid_t
 }

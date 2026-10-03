@@ -1,6 +1,6 @@
 import AppKit
 
-struct RunningApp: Identifiable, Equatable {
+struct RunningApp: Identifiable {
     let bundleID: String
     let name: String
     var id: String { bundleID }

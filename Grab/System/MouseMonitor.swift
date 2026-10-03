@@ -1,6 +1,6 @@
 import AppKit
 
-struct MouseGesture: Equatable {
+struct MouseGesture {
     let down: CGPoint
     let up: CGPoint
     let clickCount: Int

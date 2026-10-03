@@ -7,7 +7,6 @@ final class FakePasteboard: PasteboardAccessing {
     var changeCount = 0
     var currentString: String?
     var writes: [String] = []
-    var restored: [[NSPasteboard.PasteboardType: Data]]?
 
     func write(_ text: String) {
         writes.append(text)
@@ -20,7 +19,6 @@ final class FakePasteboard: PasteboardAccessing {
     }
 
     func restore(_ items: [[NSPasteboard.PasteboardType: Data]]) {
-        restored = items
         currentString = items.first?[.string].flatMap { String(data: $0, encoding: .utf8) }
         changeCount += 1
     }
