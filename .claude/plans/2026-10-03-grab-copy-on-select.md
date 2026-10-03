@@ -120,9 +120,9 @@
 ---
 
 ### Step 3: Pure decision logic
-**Status:** pending
-**Started:** —
-**Completed:** —
+**Status:** done
+**Started:** 2026-10-03
+**Completed:** 2026-10-03
 **Files:**
 - Create: `Grab/Core/SelectionGesture.swift`
 - Create: `Grab/Core/ClipboardFilter.swift`
@@ -144,9 +144,9 @@ No AppKit/AX calls here — value types only, fully unit-tested.
 
 #### Verification
 - **Tier:** standard
-- **Gemini:** —
-- **Groq:** —
-- **OpenAI:** —
+- **Gemini:** pass (assertions: 1/1 (27 Swift Testing + 5 XCTest))
+- **Groq:** pass
+- **OpenAI:** skip
 - **Mistral (correctness):** n/a
 - **Thinking:** n/a
 - **Provenance:** n/a
