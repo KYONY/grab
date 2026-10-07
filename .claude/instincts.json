@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "last_actualize": "2026-10-07",
+  "instincts": [
+    {
+      "id": "inst-7f1ed6d1",
+      "trigger": "WHEN asking the user a yes/no or either/or question mid-task",
+      "action": "THEN use AskUserQuestion with labelled options instead of free-text a)/b) choices",
+      "domain": "workflow",
+      "confidence": 0.49,
+      "created": "2026-10-03",
+      "updated": "2026-10-07",
+      "reinforcements": 1,
+      "contradictions": 0
+    }
+  ]
+}
